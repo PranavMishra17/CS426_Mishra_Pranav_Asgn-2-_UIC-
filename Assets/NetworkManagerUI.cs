@@ -8,6 +8,8 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using Unity.Networking.Transport.Relay;
 using Unity.Netcode.Transports.UTP;
+using UnityEditor.Rendering;
+
 public class NetworkManagerUI : MonoBehaviour
 {
     // [SerializeField] attribute is used to make the private variables accessible
@@ -21,6 +23,8 @@ public class NetworkManagerUI : MonoBehaviour
     [SerializeField] private int maxPlayers = 4;
     // join code
     public string joinCode;
+    public Cinemachine.CinemachineVirtualCamera cvc;
+    public Transform player;
 
     [SerializeField] private TMP_InputField joinCodeInputField;
     // after all objectes are created and initialized
@@ -83,6 +87,30 @@ public class NetworkManagerUI : MonoBehaviour
 
         // display the join code
         joinCodeText.text = joinCode;
+        //BulletComp player = FindObjectOfType<BulletComp>();
+        // Specify the name of the child you want to find
+        //string childName = "PlayerCameraRoot";
+
+        // Find the child by name
+        //Transform childTransform = player.gameObject.transform.Find(childName);
+        //cvc.SetFollowObject(player.gameObject.transform, childTransform);
+        //cvc.m_Follow = player.gameObject.transform;
+        //cvc.m_LookAt = childTransform;
+        //SetActiveCamera(player.transform.Find("Camera").GetComponent<Camera>());
+
+    }
+
+    void SetActiveCamera(Camera activeCamera)
+    {
+        // Disable all cameras
+        Camera[] allCameras = Camera.allCameras;
+        foreach (Camera camera in allCameras)
+        {
+            camera.enabled = false;
+        }
+
+        // Enable the specified camera
+        activeCamera.enabled = true;
     }
 
     // start client relay

@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 // adding namespaces
 using Unity.Netcode;
-// because we are using the NetworkBehaviour class
-// NewtorkBehaviour class is a part of the Unity.Netcode namespace
-// extension of MonoBehaviour that has functions related to multiplayer
-public class Playermovement : NetworkBehaviour
+public class BulletComp : NetworkBehaviour
 {
     public float speed = 2f;
     // create a list of colors
@@ -30,8 +27,7 @@ public class Playermovement : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerCamera = FindAnyObjectByType<Camera>();
-        audioListener = playerCamera.GetComponent<AudioListener>();
+
     }
     // Update is called once per frame
     void Update()
@@ -40,27 +36,6 @@ public class Playermovement : NetworkBehaviour
         // makes sure the script is only executed on the owners 
         // not on the other prefabs 
         if (!IsOwner) return;
-
-        Vector3 moveDirection = new Vector3(0, 0, 0);
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            moveDirection.z = +1f;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            moveDirection.z = -1f;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            moveDirection.x = -1f;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            moveDirection.x = +1f;
-        }
-        transform.position += moveDirection * speed * Time.deltaTime;
-
 
         // if I is pressed spawn the object 
         // if J is pressed destroy the object
